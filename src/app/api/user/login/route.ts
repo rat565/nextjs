@@ -9,13 +9,14 @@ dbConnect();
 export async function POST(request: NextRequest) {
     try {
         const req = await request.json();
+        console.log(req);
         const { email, password } = req;
-
-        const user = await User.findOne({ email });
-
+        const user = await User.findOne({ email }); // Modle created byb the user
+        
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
+
         const tokenData = {
             userId: user._id,
             username: user.username,
